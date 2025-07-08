@@ -1,0 +1,20 @@
+{% extends 'base_login.html' %}
+{% block title %}Filtered Export{% endblock %}
+{% block content %}
+<h2>Export Filtered Submissions</h2>
+
+<form method="POST">
+    <label>Start Date:</label><br>
+    <input type="date" name="start" required><br><br>
+
+    <label>End Date:</label><br>
+    <input type="date" name="end" required><br><br>
+
+    <label>Email (optional):</label><br>
+    <input type="email" name="email"><br><br>
+
+    <button type="submit">Download Filtered CSV</button>
+</form>
+
+<p><a href="/dashboard">⬅ Back to Dashboard</a></p>
+{% endblock %}

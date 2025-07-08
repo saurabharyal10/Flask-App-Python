@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Flask App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 text-white p-4 shadow">
+        <div class="container mx-auto flex justify-between">
+            <a href="/" class="font-bold">MyApp</a>
+            <div class="space-x-4">
+                <a href="/" class="hover:underline">Home</a>
+                <a href="/signup" class="hover:underline">Sign Up</a>
+                <a href="/login" class="hover:underline">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mx-auto px-4 mt-4">
+        {% for category, message in messages %}
+        <div class="p-4 rounded-lg mb-4
+            {% if category == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% elif category == 'error' %}
+                bg-red-100 text-red-800 border border-red-300
+            {% else %}
+                bg-gray-100 text-gray-800 border
+            {% endif %}
+            ">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <main class="flex-grow container mx-auto px-4 py-6">
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <footer class="bg-gray-200 text-center p-4 text-sm">
+        &copy; 2025 Saurabh's Flask App
+    </footer>
+</body>
+
+</html>

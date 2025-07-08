@@ -1,0 +1,43 @@
+{% extends 'base_login.html' %}
+{% block title %}User Feedbacks{% endblock %} 
+{% block content %}
+
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">📬 All Feedback</h1>
+
+    <!-- 🔍 Search Form -->
+    <form method="get" action="/feedback_list" class="mb-6 max-w-lg">
+        <div class="flex">
+            <input type="text" name="q" placeholder="Search by name or keyword..." value="{{ query | default('') }}"
+                   class="w-full p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <button type="submit"
+                    class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600 transition">
+                Search
+            </button>
+        </div>
+    </form>
+
+    {% if feedbacks %}
+        <ul class="space-y-4">
+            {% for f in feedbacks %}
+                <li class="bg-gray-100 p-4 rounded-xl shadow-sm">
+                    <p class="text-lg"><strong>{{ f[0] }}:</strong> {{ f[1] }}</p>
+                    <p class="text-sm text-gray-600">Posted on: {{ f[2] }}</p>
+
+                    <form action="/delete-feedback/{{ f[3] }}" method="post" 
+                          onsubmit="return confirm('Are you sure you want to delete this feedback?');"
+                          class="mt-2">
+                        <button type="submit" 
+                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">
+                            Delete
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500 italic">No feedback yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
